@@ -5,7 +5,7 @@ It's currently running on my local machine from 10a to 8p daily AZ time, 7 days 
 ## How do I get added?
 Fill out the google form at https://forms.gle/WN3YLVJvL5pp7feq6  
 You will need:
-* A share.garmin user name
+* A share.garmin.com user name
 * The N number or ICAO id of your aircraft
 * Your name
 
