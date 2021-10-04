@@ -168,8 +168,6 @@ def openClient():
         except:
             pass
 
-# main loop
-
 APRS_SERVER_PUSH = 'glidern2.glidernet.org'
 APRS_SERVER_PORT =  14580 #10152
 APRS_USER_PUSH = 'INREACH'
@@ -184,7 +182,7 @@ urllib.request.urlretrieve("https://raw.githubusercontent.com/DavisChappins/Inre
 print('Downloading user.csv from https://raw.githubusercontent.com/DavisChappins/InreachToOGN/main/user.csv')
 
 #assign Github user list to user
-with open('user_github.csv', 'r') as read_obj:
+with open('user.csv', 'r') as read_obj:
     csv_reader = csv.reader(read_obj)
     user = list(csv_reader)
 
