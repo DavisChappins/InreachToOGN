@@ -257,7 +257,8 @@ while True:
                         
         try:
             sock.send('#keepalive\n'.encode())
-        except:
-            print('error encoding somehow')
+        except Exception as e:
+            print(e)
+            pass
         time.sleep(2)
     time.sleep(.09)
