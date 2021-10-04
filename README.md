@@ -11,3 +11,6 @@ For Example, if your shared position is available at https://share.garmin.com/sh
 ## How can I tell it is running?
 The script connects to http://glidern2.glidernet.org:14501/ ctrl+f for "Inreach" to verify the script is connected and running.  
 Your position may take 5-15 minutes to appear. If your position is not valid or is older than 30 minutes at share.garmin.com you will not appear.
+
+## What does it look like on the map?
+Go to https://glidertracker.org/ and find your location. Inreach position data is pushed to the OGN as an "unknown object" and will appear as a google maps type pin. Inreach position data will be 5-15 minutes behind your actual location but will update every 10 minutes.  
