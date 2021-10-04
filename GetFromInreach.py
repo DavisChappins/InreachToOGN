@@ -25,7 +25,9 @@ class aircraft():
     def __init__(self):
         self.user = ''
         self.latitude = ''
+        self.latitudeNS = ''
         self.longitude = ''
+        self.longitudeEW = ''
         self.altitude = ''
         self.groundSpeed = ''
         self.heading = ''
@@ -37,7 +39,9 @@ class getInreach():
     def __init__(self, user):
         self.user = user
         self.latitude = ''
+        self.latitudeNS = ''
         self.longitude = ''
+        self.longitudeEW = ''
         self.altitude = ''
         self.groundSpeed = ''
         self.heading = ''
@@ -61,8 +65,13 @@ class getInreach():
         #get decimal
         lat_d = math.trunc(lat_f)
         lat_s = str(lat_d)
-        #get minutes
-        lat_m = round((lat_f*60) % 60,2)
+        #get minutes and get N or S
+        if lat_d > 0:
+            lat_m = round((lat_f*60) % 60,2)
+            self.latitudeNS = 'N'
+        else:
+            lat_m = round((lat_f*-1*60) % 60,2)
+            self.latitudeNS = 'S'
         lat_m_s = "{:.2f}".format(lat_m)
         lat_m_afterDec = lat_m_s[-2:]
         #isolate minutes only
@@ -85,7 +94,12 @@ class getInreach():
         lon_d = math.trunc(lon_f)
         lon_s = str(lon_d)
         #get minutes
-        lon_m = round((lon_f*60) % 60,2)
+        if lon_d > 0:
+            lon_m = round((lon_f*60) % 60,2)
+            self.longtiudeEW = 'E'
+        else:
+            lon_m = round((lon_f*-1*60) % 60,2)
+            self.longitudeEW = 'W'
         lon_m_s = "{:.2f}".format(lon_m)
         lon_m_afterDec = lon_m_s[-2:]
         #isolate minutes only
@@ -229,8 +243,8 @@ while True:
                 ICAO = 'ICA' + user[i][1]           #   'FLRDDBA99'
                 APRS_stuff = '>APRS,qAS,Inreach:/'
                 time_UTC = inreach.timeUTC              
-                lat = inreach.latitude + 'N'        #   '3300.02N'
-                lon = inreach.longitude + 'W'       #   '11200.00W'
+                lat = inreach.latitude + inreach.latitudeNS   #'N'        #   '3300.02N'
+                lon = inreach.longitude + inreach.longitudeEW   #'W'       #   '11200.00W'
                 ac_type = "'"
                 heading = inreach.heading           #   '000' 
                 speed = inreach.groundSpeed         #   '000'
