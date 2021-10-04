@@ -10,7 +10,7 @@ You will need:
 * Your name
 
 ## How can I tell if it is running?
-After turning on your Inreach device, your position may take 5-15 minutes to appear. If your position is not valid or is older than 30 minutes at share.garmin.com you will not appear. Ensure your username and aircraft info is in the [user.csv](https://github.com/DavisChappins/InreachToOGN/blob/main/user.csv) file. If you have recently filled out the form it may take a short amount of time for your info to be added.  
+After turning on your Inreach device, your position may take 5-15 minutes to appear. If your position is not valid or is older than 30 minutes at share.garmin.com you will not appear. Ensure your username and aircraft info is in the [user.csv](https://github.com/DavisChappins/InreachToOGN/blob/main/user.csv) file. The csv file is updated by filling out [this google form](https://forms.gle/WN3YLVJvL5pp7feq6  ). If you have recently filled out the form it may take a short amount of time for your info to be added.  
 The script connects to http://glidern2.glidernet.org:14501/ ctrl+f for "Inreach" to verify the script is connected and running.  
 
 ## What does it look like on the map?
