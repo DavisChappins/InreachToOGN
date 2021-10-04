@@ -5,7 +5,7 @@ import math
 import threading
 import argparse
 import traceback
-
+import csv
 from ogn.client import AprsClient
 from ogn.parser import parse, ParseError
 from datetime import datetime, timedelta
@@ -221,6 +221,14 @@ traffic_list = []
 ####------APRS encode----
 #def APRS_encode():
     
+#Get most recent user list from Github
+urllib.request.urlretrieve("https://raw.githubusercontent.com/DavisChappins/InreachToOGN/main/user.csv", "user.csv")
+print('Downloading user.csv from https://raw.githubusercontent.com/DavisChappins/InreachToOGN/main/user.csv')
+
+#assign Github user list to user
+with open('user_github.csv', 'r') as read_obj:
+    csv_reader = csv.reader(read_obj)
+    user = list(csv_reader)
 
 
 #localhost for testing
@@ -249,21 +257,21 @@ print("APRS Login reply:  ", data) #server response
 #callsign/pass generator at https://www.george-smart.co.uk/aprs/aprs_callpass/
 
 
-
+#old user list
 #user = 'JoeSilvasi' # JoeSilvasi , z15 , 6Q5VG
-user = {0:['JoeSilvasi','AB2436','Joe Silvasi'],
+'''user = {0:['JoeSilvasi','AB2436','Joe Silvasi'],
         1:['z15','A3950B','Bryce Sammeter'],
         2:['6Q5VG','A6355B','Bruce Dage'],
         3:['LOV2AV8','A08E6B','Randy Acree'],
         4:['SteveKoerner','A39421','Steve Koerner'],
         5:['JohnJsGliderFlights','A39427','John Johnson']
-        }
+        }'''
 
 
 # https://share.garmin.com/z15 #
 
 startTime = time.time()
-
+#Separate thread for listening to OGN data
 AprsThread = threading.Thread(target=openClient)
 AprsThread.daemon = True
 AprsThread.start()
@@ -299,7 +307,7 @@ while True:
     if threeMinuteTimer > 179.9: #179.9, 3 minutes is 180 seconds
         print('Local time:',datetime.now().strftime("%m/%d/%Y, %H:%M:%S"),'Uptime:',int(timer//3600),'hours',int((timer%3600)//60),'minutes',int((timer%3600)%60),'seconds')
         
-        for i in range(len(user)):
+        for i in range(1,len(user)):
             #print('--------',user[i][0],'--------')
             #traffic_list = aircraft()
             inreach = getInreach(user[i][0])
@@ -359,33 +367,8 @@ while True:
             #print('Sending APRS keep alive')
         except:
             print('error encoding somehow')
+        time.sleep(2)
     time.sleep(.09)
     #time.sleep(300) #temporary for testing
 
-    
-
-
-
-
 #while loop end---
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
