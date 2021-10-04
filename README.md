@@ -1,6 +1,6 @@
 # InreachToOGN
 This script grabs Inreach location data from [user.csv](https://github.com/DavisChappins/InreachToOGN/blob/main/user.csv) in this repository and uploads it to the OGN to be viewable on OGN sites like https://glidertracker.org/. For more information about the OGN see http://wiki.glidernet.org/.  
-It's currently running on my local machine from 10a to 8p daily AZ time, 7 days a week.
+It's currently running on my local machine from 10a to 8p AZ time, 7 days a week.
   
 ## How can I add my Inreach?
 Fill out the google form at https://forms.gle/WN3YLVJvL5pp7feq6  
