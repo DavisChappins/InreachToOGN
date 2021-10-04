@@ -210,7 +210,7 @@ AprsThread.daemon = True
 AprsThread.start()
 
 while True:
-    #timers#
+    #timers
     timer_now = time.time()
     timer = timer_now - startTime
     fiveMinuteTimer = timer % 300   #300 seconds in 5 min, if >299.9 then action
