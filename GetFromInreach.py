@@ -180,6 +180,7 @@ traffic_list = []
 #Get most recent user list from Github
 urllib.request.urlretrieve("https://raw.githubusercontent.com/DavisChappins/InreachToOGN/main/user.csv", "user.csv")
 print('Downloading user.csv from https://raw.githubusercontent.com/DavisChappins/InreachToOGN/main/user.csv')
+time.sleep(2)
 
 #assign Github user list to user
 with open('user.csv', 'r') as read_obj:
