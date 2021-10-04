@@ -167,7 +167,6 @@ def openClient():
             #print(APRSbeacon)
         except:
             pass
-    #time.sleep(1)
 
 # main loop
 
