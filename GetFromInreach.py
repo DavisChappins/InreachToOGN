@@ -177,8 +177,8 @@ class getInreach():
             gps_fix_end = text.find('</value>\r\n          </Data>\r\n          <Data name="In Emergency">\r\n            <value>')
             gps_fix = text[gps_fix_start:gps_fix_end]
             #print('GPS fix:',gps_fix)
-        except Exception as e:
-            print(e)
+        except:
+            print('error parsing:',user)
             pass
 
 def openClient():
