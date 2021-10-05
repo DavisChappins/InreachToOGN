@@ -53,126 +53,129 @@ class getInreach():
         data = response.read()
         text = data.decode('utf-8')
 
+        try:
+            #find latitude
+            lat_start = text.find('<Data name="Latitude">\r\n            <value>') + len('<Data name="Latitude">\r\n            <value>')
+            lat_end = text.find('</value>\r\n          </Data>\r\n          <Data name="Longitude">\r\n            <value>')
+            #print(text.find('<Data name="Latitude">\r\n            <value>'))
+            #print(text[lat_index:])
+            lat = text[lat_start:lat_end]
 
-        #find latitude
-        lat_start = text.find('<Data name="Latitude">\r\n            <value>') + len('<Data name="Latitude">\r\n            <value>')
-        lat_end = text.find('</value>\r\n          </Data>\r\n          <Data name="Longitude">\r\n            <value>')
-        #print(text.find('<Data name="Latitude">\r\n            <value>'))
-        #print(text[lat_index:])
-        lat = text[lat_start:lat_end]
+            lat_f = float(lat)
+            #get decimal
+            lat_d = math.trunc(lat_f)
+            #get minutes and get N or S
+            if lat_d > 0:
+                lat_m = round((lat_f*60) % 60,2)
+                self.latitudeNS = 'N'
+            else:
+                lat_m = round((lat_f*-1*60) % 60,2)
+                self.latitudeNS = 'S'
+                lat_d = abs(lat_d)
 
-        lat_f = float(lat)
-        #get decimal
-        lat_d = math.trunc(lat_f)
-        #get minutes and get N or S
-        if lat_d > 0:
-            lat_m = round((lat_f*60) % 60,2)
-            self.latitudeNS = 'N'
-        else:
-            lat_m = round((lat_f*-1*60) % 60,2)
-            self.latitudeNS = 'S'
-            lat_d = abs(lat_d)
-        
-        lat_s = str(lat_d)
-        lat_m_s = "{:.2f}".format(lat_m)
-        lat_m_afterDec = lat_m_s[-2:]
-        #isolate minutes only
-        lat_m_o = str(int(lat_m))
-        lat_m_o = lat_m_o.zfill(2)
-        #combine them
-        lat_c = lat_s + lat_m_o + '.' + lat_m_afterDec
-        #print('latitude:',lat_c) #formatted for APRS
-        self.latitude = lat_c
-
-
-        #find longitude
-        lon_start = text.find('<Data name="Longitude">\r\n            <value>') + len('<Data name="Longitude">\r\n            <value>')
-        lon_end = text.find('</value>\r\n          </Data>\r\n          <Data name="Elevation">\r\n            <value>')
-        lon = text[lon_start:lon_end]
-
-        lon_f = float(lon)
-        #lon_f = lon_f #* -1  #only works in North America
-        #get decimal
-        lon_d = math.trunc(lon_f)
-        #get minutes and get E or W
-        if lon_d > 0:
-            lon_m = round((lon_f*60) % 60,2)
-            self.longtiudeEW = 'E'
-        else:
-            lon_m = round((lon_f*-1*60) % 60,2)
-            self.longitudeEW = 'W'
-            lon_d = abs(lon_d)
-
-        lon_s = str(lon_d)
-        lon_m_s = "{:.2f}".format(lon_m)
-        lon_m_afterDec = lon_m_s[-2:]
-        #isolate minutes only
-        lon_m_o = str(int(lon_m))
-        lon_m_o = lon_m_o.zfill(2)
-        #combine them
-        lon_c = lon_s + lon_m_o + '.' + lon_m_afterDec
-        #print('longitude:',lon_c) #formatted for APRS
-        self.longitude = lon_c
+            lat_s = str(lat_d)
+            lat_m_s = "{:.2f}".format(lat_m)
+            lat_m_afterDec = lat_m_s[-2:]
+            #isolate minutes only
+            lat_m_o = str(int(lat_m))
+            lat_m_o = lat_m_o.zfill(2)
+            #combine them
+            lat_c = lat_s + lat_m_o + '.' + lat_m_afterDec
+            #print('latitude:',lat_c) #formatted for APRS
+            self.latitude = lat_c
 
 
-        #find elevation (meters)
-        elev_start = text.find('<Data name="Elevation">\r\n            <value>') + len('<Data name="Elevation">\r\n            <value>')
-        elev_end = text.find(' m from MSL</value>\r\n          </Data>\r\n          <Data name="Velocity">\r\n            <value>')
-        elev_s = text[elev_start:elev_end]
-        elev_f = float(elev_s)
-        elev = int(elev_f * 3.28084) #change to feet (from m)
-        elev = "{:06d}".format(elev)
-        #print('altitude:',elev)
-        self.altitude = elev
+            #find longitude
+            lon_start = text.find('<Data name="Longitude">\r\n            <value>') + len('<Data name="Longitude">\r\n            <value>')
+            lon_end = text.find('</value>\r\n          </Data>\r\n          <Data name="Elevation">\r\n            <value>')
+            lon = text[lon_start:lon_end]
+
+            lon_f = float(lon)
+            #lon_f = lon_f #* -1  #only works in North America
+            #get decimal
+            lon_d = math.trunc(lon_f)
+            #get minutes and get E or W
+            if lon_d > 0:
+                lon_m = round((lon_f*60) % 60,2)
+                self.longtiudeEW = 'E'
+            else:
+                lon_m = round((lon_f*-1*60) % 60,2)
+                self.longitudeEW = 'W'
+                lon_d = abs(lon_d)
+
+            lon_s = str(lon_d)
+            lon_m_s = "{:.2f}".format(lon_m)
+            lon_m_afterDec = lon_m_s[-2:]
+            #isolate minutes only
+            lon_m_o = str(int(lon_m))
+            lon_m_o = lon_m_o.zfill(2)
+            #combine them
+            lon_c = lon_s + lon_m_o + '.' + lon_m_afterDec
+            #print('longitude:',lon_c) #formatted for APRS
+            self.longitude = lon_c
 
 
-        #find ground speed (comes in as km/h)
-        speed_start = text.find('<Data name="Velocity">\r\n            <value>') + len('<Data name="Velocity">\r\n            <value>')
-        speed_end = text.find(' km/h</value>\r\n          </Data>\r\n          <Data name="Course">\r\n            <value>')
-        speed_s = text[speed_start:speed_end]
-        speed_f = float(speed_s)
-        speed = int(speed_f * 0.539957) #change to kts (from kmh)
-        speed = "{:03d}".format(speed)
-        #print('ground speed:',speed)
-        self.groundSpeed = speed
+            #find elevation (meters)
+            elev_start = text.find('<Data name="Elevation">\r\n            <value>') + len('<Data name="Elevation">\r\n            <value>')
+            elev_end = text.find(' m from MSL</value>\r\n          </Data>\r\n          <Data name="Velocity">\r\n            <value>')
+            elev_s = text[elev_start:elev_end]
+            elev_f = float(elev_s)
+            elev = int(elev_f * 3.28084) #change to feet (from m)
+            elev = "{:06d}".format(elev)
+            #print('altitude:',elev)
+            self.altitude = elev
 
 
-        #find course
-        course_start = text.find('<Data name="Course">\r\n            <value>') + len('<Data name="Course">\r\n            <value>')
-        course_end = text.find(' ° True</value>\r\n          </Data>\r\n          <Data name="Valid GPS Fix">\r\n            <value>')
-        course_s = text[course_start:course_end]
-        course_f = float(course_s)
-        course = int(course_f)
-        course = "{:03d}".format(course)
-        course = str(course) #format into 3 digits string leading 0s
-        #print('course:',course)
-        self.heading = course
+            #find ground speed (comes in as km/h)
+            speed_start = text.find('<Data name="Velocity">\r\n            <value>') + len('<Data name="Velocity">\r\n            <value>')
+            speed_end = text.find(' km/h</value>\r\n          </Data>\r\n          <Data name="Course">\r\n            <value>')
+            speed_s = text[speed_start:speed_end]
+            speed_f = float(speed_s)
+            speed = int(speed_f * 0.539957) #change to kts (from kmh)
+            speed = "{:03d}".format(speed)
+            #print('ground speed:',speed)
+            self.groundSpeed = speed
 
 
-        #find time UTC of transmission
-        timeUTC_start = text.find('<Data name="Time UTC">\r\n            <value>') + len('<Data name="Time UTC">\r\n            <value>')
-        timeUTC_end = text.find('</value>\r\n          </Data>\r\n          <Data name="Time">\r\n            <value>')
-        timeUTC = text[timeUTC_start:timeUTC_end]
-        #print('UTC Time:',timeUTC)
-        #compare against time now
-        timeUTC = datetime.strptime(timeUTC, '%m/%d/%Y %I:%M:%S %p')
-        timeUTC_time = timeUTC.time()
-        time_UTC_str = timeUTC_time.strftime("%H%M%S")
-        #print('formatted time:',time_UTC_str)
-        timeUTCnow = datetime.utcnow()
-        age = timeUTCnow - timeUTC
-        age_s = age.total_seconds()
-        print('----',user,'----','Last Transmission:',age,'ago')
-        #print('Position age (s):',age_s)
-        self.timeUTC = time_UTC_str
-        self.transmissionAge = age_s
+            #find course
+            course_start = text.find('<Data name="Course">\r\n            <value>') + len('<Data name="Course">\r\n            <value>')
+            course_end = text.find(' ° True</value>\r\n          </Data>\r\n          <Data name="Valid GPS Fix">\r\n            <value>')
+            course_s = text[course_start:course_end]
+            course_f = float(course_s)
+            course = int(course_f)
+            course = "{:03d}".format(course)
+            course = str(course) #format into 3 digits string leading 0s
+            #print('course:',course)
+            self.heading = course
 
 
-        #is gps fix valid
-        gps_fix_start = text.find('<Data name="Valid GPS Fix">\r\n            <value>') + len('<Data name="Valid GPS Fix">\r\n            <value>')
-        gps_fix_end = text.find('</value>\r\n          </Data>\r\n          <Data name="In Emergency">\r\n            <value>')
-        gps_fix = text[gps_fix_start:gps_fix_end]
-        #print('GPS fix:',gps_fix)
+            #find time UTC of transmission
+            timeUTC_start = text.find('<Data name="Time UTC">\r\n            <value>') + len('<Data name="Time UTC">\r\n            <value>')
+            timeUTC_end = text.find('</value>\r\n          </Data>\r\n          <Data name="Time">\r\n            <value>')
+            timeUTC = text[timeUTC_start:timeUTC_end]
+            #print('UTC Time:',timeUTC)
+            #compare against time now
+            timeUTC = datetime.strptime(timeUTC, '%m/%d/%Y %I:%M:%S %p')
+            timeUTC_time = timeUTC.time()
+            time_UTC_str = timeUTC_time.strftime("%H%M%S")
+            #print('formatted time:',time_UTC_str)
+            timeUTCnow = datetime.utcnow()
+            age = timeUTCnow - timeUTC
+            age_s = age.total_seconds()
+            print('----',user,'----','Last Transmission:',age,'ago')
+            #print('Position age (s):',age_s)
+            self.timeUTC = time_UTC_str
+            self.transmissionAge = age_s
+
+
+            #is gps fix valid
+            gps_fix_start = text.find('<Data name="Valid GPS Fix">\r\n            <value>') + len('<Data name="Valid GPS Fix">\r\n            <value>')
+            gps_fix_end = text.find('</value>\r\n          </Data>\r\n          <Data name="In Emergency">\r\n            <value>')
+            gps_fix = text[gps_fix_start:gps_fix_end]
+            #print('GPS fix:',gps_fix)
+        except Exception as e:
+            print(e)
+            pass
 
 def openClient():
     global APRSbeacon
