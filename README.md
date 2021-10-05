@@ -3,7 +3,7 @@ This script grabs Inreach location data from [user.csv](https://github.com/Davis
 It's currently running on my local machine from 10a to 8p AZ time, 7 days a week.
   
 ## How can I add my Inreach?
-Fill out the google form at https://forms.gle/WN3YLVJvL5pp7feq6  
+First, [enable mapshare](https://support.garmin.com/en-US/?faq=EMrPa9gUgU1ZNM3LmfGneA) then fill out the google form at https://forms.gle/WN3YLVJvL5pp7feq6  
 You will need:
 * A share.garmin.com user name
 * The N number or ICAO id of your aircraft
