@@ -64,7 +64,6 @@ class getInreach():
         lat_f = float(lat)
         #get decimal
         lat_d = math.trunc(lat_f)
-        lat_s = str(lat_d)
         #get minutes and get N or S
         if lat_d > 0:
             lat_m = round((lat_f*60) % 60,2)
@@ -72,6 +71,9 @@ class getInreach():
         else:
             lat_m = round((lat_f*-1*60) % 60,2)
             self.latitudeNS = 'S'
+            lat_d = abs(lat_d)
+        
+        lat_s = str(lat_d)
         lat_m_s = "{:.2f}".format(lat_m)
         lat_m_afterDec = lat_m_s[-2:]
         #isolate minutes only
@@ -89,17 +91,19 @@ class getInreach():
         lon = text[lon_start:lon_end]
 
         lon_f = float(lon)
-        lon_f = lon_f * -1  #only works in North America
+        #lon_f = lon_f #* -1  #only works in North America
         #get decimal
         lon_d = math.trunc(lon_f)
-        lon_s = str(lon_d)
-        #get minutes
+        #get minutes and get E or W
         if lon_d > 0:
             lon_m = round((lon_f*60) % 60,2)
             self.longtiudeEW = 'E'
         else:
             lon_m = round((lon_f*-1*60) % 60,2)
             self.longitudeEW = 'W'
+            lon_d = abs(lon_d)
+
+        lon_s = str(lon_d)
         lon_m_s = "{:.2f}".format(lon_m)
         lon_m_afterDec = lon_m_s[-2:]
         #isolate minutes only
@@ -209,7 +213,7 @@ data = sock.recv(BUFFER_SIZE)
 print("APRS Login reply:  ", data) #server response
 
 #login to APRS serve
-login = 'user INREACH pass 25002 vers InreachPushClient 0.9 filter r/33/-112/10 \n'
+login = 'user INREACH pass 25002 vers InreachPushClient 1.0 filter r/33/-112/10 \n'
 login = login.encode(encoding='utf-8', errors='strict')
 sock.send(login)
 data = sock.recv(BUFFER_SIZE)
@@ -258,6 +262,7 @@ while True:
                 gps_stren = ' gps2x3'
                 newline = '\n'
                 
+                
                 if lat != 0 and lon != 0:
                     encode_ICAO = ICAO + '>APRS,qAS,Inreach:/' + time_UTC + 'h' + lat + '/' + lon + ac_type + heading + '/' + speed + '/' + 'A=' + alt + ' !W00! ' + ICAO_id + climb + 'fpm' + turn + 'rot' + sig_stren + 'dB ' + errors + ' ' + offset + 'kHz' + gps_stren + newline
                     print('sending data:',encode_ICAO)
@@ -266,8 +271,9 @@ while True:
                         sock.send(encode_ICAO.encode())
                         time.sleep(.1)
                         sock.send(encode_ICAO.encode())
-                    except:
+                    except Exception as e:
                         print('error encoding')
+                        print(e)
                         pass
                         
         try:
@@ -275,5 +281,6 @@ while True:
         except Exception as e:
             print(e)
             pass
-        time.sleep(2)
+        time.sleep(3)
     time.sleep(.09)
+
