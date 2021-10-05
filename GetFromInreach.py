@@ -240,7 +240,7 @@ while True:
         for i in range(1,len(user)):
             inreach = getInreach(user[i][0])
 
-            if inreach.transmissionAge < 2000: #30 mins and recent, only
+            if inreach.transmissionAge < 3000: #50 mins and recent, only
                 print('Tracking',user[i][0],inreach.user,inreach.transmissionAge,'seconds ago')
 
                 #encode parameters
