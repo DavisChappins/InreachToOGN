@@ -32,7 +32,7 @@ class aircraft():
         self.groundSpeed = ''
         self.heading = ''
         self.timeUTC = ''
-        self.transmissionAge = ''
+        self.transmissionAge = 10000
 
 
 class getInreach():
@@ -46,7 +46,7 @@ class getInreach():
         self.groundSpeed = ''
         self.heading = ''
         self.timeUTC = ''
-        self.transmissionAge = ''
+        self.transmissionAge = 10000
         
         url = "https://share.garmin.com/feed/share/" + user
         response = urllib.request.urlopen(url)
@@ -239,7 +239,7 @@ while True:
         
         for i in range(1,len(user)):
             inreach = getInreach(user[i][0])
-
+            time.sleep(.5)
             if inreach.transmissionAge < 3000: #50 mins and recent, only
                 print('Tracking',user[i][0],inreach.user,inreach.transmissionAge,'seconds ago')
 
