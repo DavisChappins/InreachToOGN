@@ -48,10 +48,14 @@ class getInreach():
         self.timeUTC = ''
         self.transmissionAge = 10000
         
-        url = "https://share.garmin.com/feed/share/" + user
-        response = urllib.request.urlopen(url)
-        data = response.read()
-        text = data.decode('utf-8')
+        try:
+            url = "https://share.garmin.com/feed/share/" + user
+            response = urllib.request.urlopen(url)
+            data = response.read()
+            text = data.decode('utf-8')
+        except Exception as e:
+            print(e)
+            pass
 
         try:
             #find latitude
