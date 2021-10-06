@@ -1,5 +1,5 @@
 # InreachToOGN
-This script grabs Inreach location data from [user.csv](https://github.com/DavisChappins/InreachToOGN/blob/main/user.csv) in this repository and uploads it to the OGN to be viewable on OGN sites like https://glidertracker.org/. For more information about the OGN see http://wiki.glidernet.org/.  
+This script grabs Inreach location data from [Inreachuser.csv](https://github.com/DavisChappins/InreachToOGN/blob/main/Inreachuser.csv) in this repository and uploads it to the OGN to be viewable on OGN sites like https://glidertracker.org/. For more information about the OGN see http://wiki.glidernet.org/.  
 It's currently running on my local machine from 10a to 8p AZ time, 7 days a week.
   
 ## How can I add my Inreach?
@@ -10,7 +10,7 @@ You will need:
 * Your name
 
 ## How can I tell if it is running?
-After turning on your Inreach device, your position may take 5-15 minutes to appear. If your position is not valid or is older than 30 minutes at share.garmin.com you will not appear. Ensure your username and aircraft info is in the [user.csv](https://github.com/DavisChappins/InreachToOGN/blob/main/user.csv) file. The csv file is updated by filling out [this google form](https://forms.gle/WN3YLVJvL5pp7feq6  ). If you have recently filled out the form it may take a short amount of time for your info to be added.  
+After turning on your Inreach device, your position may take 5-15 minutes to appear. If your position is not valid or is older than 30 minutes at share.garmin.com you will not appear. Ensure your username and aircraft info is in the [Inreachuser.csv](https://github.com/DavisChappins/InreachToOGN/blob/main/Inreachuser.csv) file. The csv file is updated by filling out [this google form](https://forms.gle/WN3YLVJvL5pp7feq6  ). If you have recently filled out the form it may take a short amount of time for your info to be added.  
 The script connects to http://glidern2.glidernet.org:14501/ ctrl+f for "Inreach" to verify the script is connected and running.  
 
 ## What does it look like on a map?
@@ -19,4 +19,4 @@ See below for an example, GW aircraft from FLARM (red) and GW Inreach position (
 ![Inreach on glidertracker.org](https://github.com/DavisChappins/InreachToOGN/blob/main/Images/GW_Inreach.jpg?raw=true)
 
 ## How does this script work?
-Every 3 minutes, this script parses the list of share.garmin.com Inreach positions contained in user.csv. If a position is found to be within the last 30 minutes, that position, timestamp, altitude, velocity, and heading are transmitted to the OGN servers to be displayed on any website that subscribes to OGN data. Inreach positions are transmitted as an "unknown" data type in order to not overwrite the "glider" data type. Some websites may reject "unknown" objects. user.csv contains your ICAO hex code so the same information that you entered at http://ddb.glidernet.org/ is carried over and displayed on your Inreach position.
+Every 3 minutes, this script parses the list of share.garmin.com Inreach positions contained in Inreachuser.csv. If a position is found to be within the last 30 minutes, that position, timestamp, altitude, velocity, and heading are transmitted to the OGN servers to be displayed on any website that subscribes to OGN data. Inreach positions are transmitted as an "unknown" data type in order to not overwrite the "glider" data type. Some websites may reject "unknown" objects. Inreachuser.csv contains your ICAO hex code so the same information that you entered at http://ddb.glidernet.org/ is carried over and displayed on your Inreach position.
