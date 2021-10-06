@@ -203,12 +203,12 @@ startTime = time.time()
 traffic_list = []
     
 #Get most recent user list from Github
-urllib.request.urlretrieve("https://raw.githubusercontent.com/DavisChappins/InreachToOGN/main/user.csv", "user.csv")
-print('Downloading user.csv from https://raw.githubusercontent.com/DavisChappins/InreachToOGN/main/user.csv')
+urllib.request.urlretrieve("https://raw.githubusercontent.com/DavisChappins/InreachToOGN/main/Inreachuser.csv", "Inreachuser.csv")
+print('Downloading Inreachuser.csv from https://raw.githubusercontent.com/DavisChappins/InreachToOGN/main/Inreachuser.csv')
 time.sleep(2)
 
 #assign Github user list to user
-with open('user.csv', 'r') as read_obj:
+with open('Inreachuser.csv', 'r') as read_obj:
     csv_reader = csv.reader(read_obj)
     user = list(csv_reader)
 
