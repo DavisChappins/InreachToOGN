@@ -108,7 +108,7 @@ class getInreach():
                 lon_d = abs(lon_d)
 
             lon_s = str(lon_d)
-            if abs(lon_d) <100:
+            if abs(lon_d) < 100 and abs(lon_d) > -100 :
                 lon_s = lon_s.zfill(3)
             lon_m_s = "{:.2f}".format(lon_m)
             lon_m_afterDec = lon_m_s[-2:]
