@@ -265,7 +265,7 @@ while True:
                 ICAO_id = 'id3D'+ ICAO[3:]
                 climb = ' +' + '000' 
                 turn = ' +' + '0.0' 
-                sig_stren = ' ' + '10.0' 
+                sig_stren = ' ' + '0.0' 
                 errors = '0e'
                 offset = '+' + '0.0' 
                 gps_stren = ' gps2x3'
