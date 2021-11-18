@@ -101,7 +101,7 @@ class getInreach():
             #get minutes and get E or W
             if lon_d > 0:
                 lon_m = round((lon_f*60) % 60,2)
-                self.longtiudeEW = 'E'
+                self.longitudeEW = 'E'
             else:
                 lon_m = round((lon_f*-1*60) % 60,2)
                 self.longitudeEW = 'W'
