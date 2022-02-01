@@ -287,6 +287,7 @@ while True:
                         
         try:
             sock.send('#keepalive\n'.encode())
+            print('Sending APRS keepalive')
         except Exception as e:
             print(e)
             pass
