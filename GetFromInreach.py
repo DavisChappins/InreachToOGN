@@ -195,7 +195,7 @@ def openClient():
         except:
             pass
 
-APRS_SERVER_PUSH = 'glidern2.glidernet.org'
+APRS_SERVER_PUSH = 'glidern3.glidernet.org'
 APRS_SERVER_PORT =  14580 #10152
 APRS_USER_PUSH = 'INREACH'
 BUFFER_SIZE = 1024
@@ -248,7 +248,7 @@ while True:
         
         for i in range(1,len(user)):
             inreach = getInreach(user[i][0])
-            time.sleep(.5)
+            time.sleep(3)
             if inreach.transmissionAge < 3000: #50 mins and recent, only
                 print('Tracking',user[i][0],inreach.user,inreach.transmissionAge,'seconds ago')
 
